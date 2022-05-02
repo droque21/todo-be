@@ -2,6 +2,7 @@ export interface Task {
   id: string;
   name: string;
   description: string;
+  subTasks: SubTask[];
   completed: boolean;
   createdAt: number;
   updatedAt: number;
@@ -11,7 +12,6 @@ export interface Task {
 
 export interface SubTask {
   id: string;
-  taskId: string;
   name: string;
   completed: boolean;
 }

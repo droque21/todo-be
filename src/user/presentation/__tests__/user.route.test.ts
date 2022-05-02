@@ -1,53 +1,53 @@
 import request from 'supertest';
-import { User } from '../../domain/user.entity';
-import * as UserUseCase from '../../domain/user.use-case';
+import { User } from '../../domain/entities/user.entity';
+import * as UserUseCase from '../../domain/entities/user.use-case';
 import { UserRouter } from '../user.route';
 import server from '../../../server';
 
-class MockGetUserByEmailUseCase implements UserUseCase.FindUserByEmail {
+class MockGetUserByEmailUseCase implements UserUseCase.FindUserByEmailUseCase {
   async execute(email: string): Promise<User> {
     throw new Error('Method not implemented.');
   }
 }
 
-class MockGetUserByUserNameUseCase implements UserUseCase.FindUserByUsername {
+class MockGetUserByUserNameUseCase implements UserUseCase.FindUserByUsernameUseCase {
   async execute(username: string): Promise<User> {
     throw new Error('Method not implemented.');
   }
 }
 
-class MockSaveUserUseCase implements UserUseCase.SaveUser {
+class MockSaveUserUseCaseUseCase implements UserUseCase.SaveUserUseCase {
   async execute(user: User): Promise<User> {
     throw new Error('Method not implemented.');
   }
 }
 
-class MockUpdateUserUseCase implements UserUseCase.UpdateUser {
+class MockUpdateUserUseCaseUseCase implements UserUseCase.UpdateUserUseCase {
   async execute(user: User): Promise<User> {
     throw new Error('Method not implemented.');
   }
 }
 
-class MockDeleteUserUseCase implements UserUseCase.DeleteUser {
+class MockDeleteUserUseCaseUseCase implements UserUseCase.DeleteUserUseCase {
   async execute(id: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }
 
 describe("Contact Router", () => {
-  let mockGetUserByEmailUseCase: UserUseCase.FindUserByEmail;
-  let mockGetUserByUserNameUseCase: UserUseCase.FindUserByUsername;
-  let mockSaveUserUseCase: UserUseCase.SaveUser;
-  let mockUpdateUserUseCase: UserUseCase.UpdateUser;
-  let mockDeleteUserUseCase: UserUseCase.DeleteUser;
+  let mockGetUserByEmailUseCase: UserUseCase.FindUserByEmailUseCase;
+  let mockGetUserByUserNameUseCase: UserUseCase.FindUserByUsernameUseCase;
+  let mockSaveUserUseCaseUseCase: UserUseCase.SaveUserUseCase;
+  let mockUpdateUserUseCaseUseCase: UserUseCase.UpdateUserUseCase;
+  let mockDeleteUserUseCaseUseCase: UserUseCase.DeleteUserUseCase;
 
   beforeAll(() => {
     mockGetUserByEmailUseCase = new MockGetUserByEmailUseCase();
     mockGetUserByUserNameUseCase = new MockGetUserByUserNameUseCase();
-    mockSaveUserUseCase = new MockSaveUserUseCase();
-    mockUpdateUserUseCase = new MockUpdateUserUseCase();
-    mockDeleteUserUseCase = new MockDeleteUserUseCase();
-    server.use("/user", UserRouter(mockGetUserByEmailUseCase, mockGetUserByUserNameUseCase, mockSaveUserUseCase, mockUpdateUserUseCase, mockDeleteUserUseCase));
+    mockSaveUserUseCaseUseCase = new MockSaveUserUseCaseUseCase();
+    mockUpdateUserUseCaseUseCase = new MockUpdateUserUseCaseUseCase();
+    mockDeleteUserUseCaseUseCase = new MockDeleteUserUseCaseUseCase();
+    server.use("/user", UserRouter(mockGetUserByEmailUseCase, mockGetUserByUserNameUseCase, mockSaveUserUseCaseUseCase, mockUpdateUserUseCaseUseCase, mockDeleteUserUseCaseUseCase));
   })
 
   beforeEach(() => {
@@ -95,18 +95,17 @@ describe("Contact Router", () => {
   describe("POST /user", () => {
     test("should return 200 with data", async () => {
       const ExpectedData: User = { id: "1", username: "test", email: "email@test.com" }
-      jest.spyOn(mockSaveUserUseCase, "execute").mockImplementation(() => Promise.resolve(ExpectedData))
+      jest.spyOn(mockSaveUserUseCaseUseCase, "execute").mockImplementation(() => Promise.resolve(ExpectedData))
 
       const response = await request(server).post("/user")
       expect(response.status).toBe(200)
-      expect(mockSaveUserUseCase.execute).toBeCalledTimes(1)
+      expect(mockSaveUserUseCaseUseCase.execute).toBeCalledTimes(1)
       expect(response.body).toStrictEqual({ user: ExpectedData })
     });
 
     test("GET /contact returns 500 on use case error", async () => {
-      jest.spyOn(mockSaveUserUseCase, "execute").mockImplementation(() => Promise.reject(Error()))
+      jest.spyOn(mockSaveUserUseCaseUseCase, "execute").mockImplementation(() => Promise.reject(Error()))
       const response = await request(server).post("/user")
-      console.log(response.body)
       expect(response.status).toBe(500)
       expect(response.body).toStrictEqual({ message: "", error: {} })
     });
@@ -115,18 +114,17 @@ describe("Contact Router", () => {
   describe("Put /user", () => {
     test("should return 200 with data", async () => {
       const ExpectedData: User = { id: "1", username: "test", email: "email@test.com" }
-      jest.spyOn(mockUpdateUserUseCase, "execute").mockImplementation(() => Promise.resolve(ExpectedData))
+      jest.spyOn(mockUpdateUserUseCaseUseCase, "execute").mockImplementation(() => Promise.resolve(ExpectedData))
 
       const response = await request(server).put("/user")
       expect(response.status).toBe(200)
-      expect(mockUpdateUserUseCase.execute).toBeCalledTimes(1)
+      expect(mockUpdateUserUseCaseUseCase.execute).toBeCalledTimes(1)
       expect(response.body).toStrictEqual({ user: ExpectedData })
     });
 
     test("GET /contact returns 500 on use case error", async () => {
-      jest.spyOn(mockUpdateUserUseCase, "execute").mockImplementation(() => Promise.reject(Error()))
+      jest.spyOn(mockUpdateUserUseCaseUseCase, "execute").mockImplementation(() => Promise.reject(Error()))
       const response = await request(server).put("/user")
-      console.log(response.body)
       expect(response.status).toBe(500)
       expect(response.body).toStrictEqual({ message: "", error: {} })
     });
@@ -134,18 +132,17 @@ describe("Contact Router", () => {
 
   describe("Delete /user", () => {
     test("should return 200 with data", async () => {
-      jest.spyOn(mockDeleteUserUseCase, "execute").mockImplementation(() => Promise.resolve())
+      jest.spyOn(mockDeleteUserUseCaseUseCase, "execute").mockImplementation(() => Promise.resolve())
 
       const response = await request(server).delete("/user")
       expect(response.status).toBe(200)
-      expect(mockDeleteUserUseCase.execute).toBeCalledTimes(1)
+      expect(mockDeleteUserUseCaseUseCase.execute).toBeCalledTimes(1)
       expect(response.body).toStrictEqual({ message: "User deleted" })
     });
 
     test("GET /contact returns 500 on use case error", async () => {
-      jest.spyOn(mockDeleteUserUseCase, "execute").mockImplementation(() => Promise.reject(Error()))
+      jest.spyOn(mockDeleteUserUseCaseUseCase, "execute").mockImplementation(() => Promise.reject(Error()))
       const response = await request(server).delete("/user")
-      console.log(response.body)
       expect(response.status).toBe(500)
       expect(response.body).toStrictEqual({ message: "", error: {} })
     });

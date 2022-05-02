@@ -1,13 +1,12 @@
 import express, { Request, Response } from 'express';
-import { User } from '../domain/user.entity';
-import * as UserUseCase from '../domain/user.use-case';
+import * as UserUseCase from '../domain/entities/user.use-case';
 
 export const UserRouter = (
-  findUserByEmailUseCase: UserUseCase.FindUserByEmail,
-  findUserByUsernameUseCase: UserUseCase.FindUserByUsername,
-  saveUserUseCase: UserUseCase.SaveUser,
-  updateUserUseCase: UserUseCase.UpdateUser,
-  deleteUserUseCase: UserUseCase.DeleteUser
+  findUserByEmailUseCase: UserUseCase.FindUserByEmailUseCase,
+  findUserByUsernameUseCase: UserUseCase.FindUserByUsernameUseCase,
+  saveUserUseCase: UserUseCase.SaveUserUseCase,
+  updateUserUseCase: UserUseCase.UpdateUserUseCase,
+  deleteUserUseCase: UserUseCase.DeleteUserUseCase
 ) => {
   const router = express.Router();
 

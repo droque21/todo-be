@@ -1,21 +1,21 @@
 import { User } from "./user.entity";
 
-export interface FindUserByEmail {
+export interface FindUserByEmailUseCase {
   execute(email: string): Promise<User>;
 }
 
-export interface FindUserByUsername {
+export interface FindUserByUsernameUseCase {
   execute(username: string): Promise<User>;
 }
 
-export interface SaveUser {
+export interface SaveUserUseCase {
   execute(user: User): Promise<User>;
 }
 
-export interface UpdateUser {
+export interface UpdateUserUseCase {
   execute(user: User): Promise<User>;
 }
 
-export interface DeleteUser {
+export interface DeleteUserUseCase {
   execute(id: string): Promise<void>;
 }
