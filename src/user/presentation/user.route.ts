@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { User } from '../domain/user.entity';
 import * as UserUseCase from '../domain/user.use-case';
 
-export const userRouter = (
+export const UserRouter = (
   findUserByEmailUseCase: UserUseCase.FindUserByEmail,
   findUserByUsernameUseCase: UserUseCase.FindUserByUsername,
   saveUserUseCase: UserUseCase.SaveUser,
