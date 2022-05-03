@@ -3,7 +3,7 @@ import { userRepository } from '../../../application/repositories/user.repositor
 import { authServiceRepository } from '../../../application/services/authService';
 import { userRepositoryDB } from '../../database/repositories/user.repositoryDB';
 import { authServiceImpl } from '../../services/authService';
-import { authMiddleware } from '../middlewares/authMiddleware';
+import { authMiddleware } from '../middlewares';
 
 export const userRouter = (express) => {
   const router = express.Router();

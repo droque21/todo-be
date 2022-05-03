@@ -7,7 +7,7 @@ import serverConfig from './src/infrastructure/webserver/server';
 import mongoDbConnection from './src/infrastructure/database/connection';
 // // middlewares
 import { errorHandlingMiddleware } from './src/infrastructure/webserver/middlewares';
-import { routeNotFoundMiddleware } from './src/infrastructure/webserver/middlewares/routeNotFound';
+import { routeNotFoundMiddleware } from './src/infrastructure/webserver/middlewares';
 
 const app = express();
 const server = require('http').createServer(app);
