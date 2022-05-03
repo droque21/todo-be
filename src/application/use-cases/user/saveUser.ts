@@ -8,15 +8,18 @@ export const saveUser = async (user: User, userRepository: UserRepository, authR
     throw new Error("User must have email, username and password");
   }
 
+  const erros: string[] = []
 
   const emailExists = Boolean(await userRepository.getUserByEmail(user.email));
-  if (emailExists) generateCustomError(400, "Email already exists");
+  if (emailExists) erros.push("Email already exists");
 
   const usernameExists = Boolean(await userRepository.getUserByUsername(user.username));
-  if (usernameExists) generateCustomError(400, "Username already exists");
+  if (usernameExists) erros.push("Username already exists");
 
-  const passwordIsValid = user.password.length >= 8;
-  if (passwordIsValid) generateCustomError(400, "Passowrd must be at least 8 characters long");
+  const passwordIsInValid = user.password.length <= 7;
+  if (passwordIsInValid) erros.push("Passowrd must be at least 8 characters long");
+
+  if (erros.length > 0) generateCustomError(400, "User must have email, username and password", erros);
 
   const newUser: User = {
     ...user,
