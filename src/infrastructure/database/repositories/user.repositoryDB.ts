@@ -11,6 +11,7 @@ function omit(obj, ...props) {
 }
 
 export const userRepositoryDB: userRepositoryDBGenerator = () => {
+
   const getUserByUsername = async (username: string) => {
     const result = await UserModel.findOne({ username });
     return result as User;
@@ -36,6 +37,6 @@ export const userRepositoryDB: userRepositoryDBGenerator = () => {
     getUserByEmail,
     saveUser,
     updateUser,
-    deleteUser,
+    deleteUser
   };
 }

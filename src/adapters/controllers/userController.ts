@@ -2,7 +2,7 @@ import { User } from "../../domain/entities/user";
 import { userRepositoryGenerator } from "../../application/repositories/user.repository";
 import { AuthServiceImplementationGenerator, AuthServiceRepositoryGenerator } from "../../application/services/authService";
 import * as UserUseCase from "../../application/use-cases/user";
-import { RequestCustom, RequestWithUser } from "../../infrastructure/interfaces/express/indes";
+import { RequestCustom, RequestWithUser } from "../../infrastructure/interfaces/express";
 import { userRepositoryDBGenerator } from "../../infrastructure/interfaces/repositoriesDB/user/user.repositoryDB";
 
 export const userController = (

@@ -7,6 +7,7 @@ import serverConfig from './src/infrastructure/webserver/server';
 import mongoDbConnection from './src/infrastructure/database/connection';
 // // middlewares
 import { errorHandlingMiddleware } from './src/infrastructure/webserver/middlewares';
+import { routeNotFoundMiddleware } from './src/infrastructure/webserver/middlewares/routeNotFound';
 
 const app = express();
 const server = require('http').createServer(app);
@@ -28,6 +29,7 @@ mongoDbConnection(mongoose, config, {
 // routes for each endpoint
 routes(app, express);
 
+app.use(routeNotFoundMiddleware);
 // error handling middleware
 app.use(errorHandlingMiddleware);
 
