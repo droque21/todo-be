@@ -1,5 +1,5 @@
 import { generateCustomError } from "../../../infrastructure/webserver/middlewares/errorHandlingMiddleware";
-import { UserRepository } from "../../repositories/user.repository";
+import { UserRepository } from "../../interfaces/user.repository.interface";
 import { AuthServiceRepository } from "../../services/authService";
 
 export const deleteUser = async (id: string, userRepository: UserRepository, authRepository: AuthServiceRepository): Promise<boolean> => {

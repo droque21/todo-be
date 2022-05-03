@@ -9,3 +9,8 @@ export interface User {
   createdBy?: string;
   updatedBy?: string;
 }
+
+export interface AuthUser {
+  token: string;
+  user: User;
+}

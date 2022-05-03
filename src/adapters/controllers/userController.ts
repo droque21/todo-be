@@ -1,9 +1,9 @@
 import { User } from "../../domain/entities/user";
-import { userRepositoryGenerator } from "../../application/repositories/user.repository";
 import { AuthServiceImplementationGenerator, AuthServiceRepositoryGenerator } from "../../application/services/authService";
 import * as UserUseCase from "../../application/use-cases/user";
-import { RequestCustom, RequestWithUser } from "../../infrastructure/interfaces/express";
-import { userRepositoryDBGenerator } from "../../infrastructure/interfaces/repositoriesDB/user/user.repositoryDB";
+import { RequestCustom, RequestWithUser } from "../../infrastructure/webserver/interfaces/express";
+import { userRepositoryDBGenerator } from "../../infrastructure/database/interfaces/user.repositoryDB.interface";
+import { userRepositoryGenerator } from "../../application/interfaces/user.repository.interface";
 
 export const userController = (
   userRepositoryGenerator: userRepositoryGenerator,

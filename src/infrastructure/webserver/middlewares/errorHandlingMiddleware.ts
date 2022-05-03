@@ -1,4 +1,4 @@
-import { ErrorResponse } from "../../interfaces/express";
+import { ErrorResponse } from '../interfaces/express';
 
 export const errorHandlingMiddleware = (err, req, res, next) => {
   err.statusCode ??= 500;

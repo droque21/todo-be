@@ -1,6 +1,5 @@
-import { userRepositoryGenerator } from '../../../application/repositories/user.repository';
 import { User } from '../../../domain/entities/user';
-import { userRepositoryDBGenerator } from '../../interfaces/repositoriesDB/user/user.repositoryDB';
+import { userRepositoryDBGenerator } from '../interfaces/user.repositoryDB.interface';
 import UserModel from '../models/user.model';
 
 // move it to a proper place

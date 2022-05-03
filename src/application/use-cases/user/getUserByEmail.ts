@@ -1,6 +1,6 @@
 import { User } from "../../../domain/entities/user"
 import { generateCustomError } from "../../../infrastructure/webserver/middlewares/errorHandlingMiddleware"
-import { UserRepository } from "../../repositories/user.repository"
+import { UserRepository } from "../../interfaces/user.repository.interface"
 
 
 export const getUserByEmail = async (email: string, userRepository: UserRepository): Promise<User> => {
