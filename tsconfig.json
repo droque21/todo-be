@@ -8,6 +8,6 @@
     "noImplicitAny": false,
     "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["src", "app.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]
 }

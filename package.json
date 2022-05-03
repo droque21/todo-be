@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll -c jest.config.js",
-    "test-coverage": "jest --coverage --watchAll -c jest.config.js"
+    "test-coverage": "jest --coverage --watchAll -c jest.config.js",
+    "start": "npx ts-node app.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +25,13 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "@godaddy/terminus": "^4.10.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
-    "mongoose": "^6.3.2"
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.2",
+    "morgan": "^1.10.0"
   }
 }
