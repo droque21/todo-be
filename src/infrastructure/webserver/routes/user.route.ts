@@ -3,6 +3,7 @@ import { userRepository } from '../../../application/repositories/user.repositor
 import { authServiceRepository } from '../../../application/services/authService';
 import { userRepositoryDB } from '../../database/repositories/user.repositoryDB';
 import { authServiceImpl } from '../../services/authService';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 export const userRouter = (express) => {
   const router = express.Router();
@@ -14,10 +15,11 @@ export const userRouter = (express) => {
     authServiceImpl
   )
 
-  router.get('/:username', controller.fetchUserByUsername);
-  router.get('/email/:email', controller.fetchUserByEmail);
+  router.get('/username/:username', authMiddleware, controller.fetchUserByUsername);
+  router.get('/email/:email', authMiddleware, controller.fetchUserByEmail);
   router.post('/', controller.saveUser);
-  router.put('/:id', controller.updateUser);
-  router.delete('/:id', controller.deleteUser);
+  router.put('/:id', authMiddleware, controller.updateUser);
+  router.delete('/:id', authMiddleware, controller.deleteUser);
+  router.post('/login', controller.loginUser);
   return router;
 }

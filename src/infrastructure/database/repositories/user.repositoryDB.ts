@@ -2,13 +2,6 @@ import { User } from '../../../domain/entities/user';
 import { userRepositoryDBGenerator } from '../interfaces/user.repositoryDB.interface';
 import UserModel from '../models/user.model';
 
-// move it to a proper place
-function omit(obj, ...props) {
-  const result = { ...obj };
-  props.forEach((prop) => delete result[prop]);
-  return result;
-}
-
 export const userRepositoryDB: userRepositoryDBGenerator = () => {
 
   const getUserByUsername = async (username: string) => {

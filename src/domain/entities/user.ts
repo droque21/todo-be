@@ -12,5 +12,4 @@ export interface User {
 
 export interface AuthUser {
   token: string;
-  user: User;
 }

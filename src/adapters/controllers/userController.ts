@@ -68,11 +68,22 @@ export const userController = (
     }
   }
 
+  const loginUser = async (req: RequestCustom<User>, res: any, next: any) => {
+    try {
+      const user = req.body
+      const token = await UserUseCase.loginUser(user, userRepository, authService)
+      res.json(token)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   return {
     fetchUserByUsername,
     fetchUserByEmail,
     saveUser,
     updateUser,
     deleteUser,
+    loginUser
   }
 }
