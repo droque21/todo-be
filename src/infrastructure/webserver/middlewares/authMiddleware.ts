@@ -1,7 +1,7 @@
 import { authServiceImpl } from "../../services/authService";
 import { authServiceRepository } from "../../../application/services/authService";
 import { Request, Response, NextFunction } from "express";
-import { generateCustomError } from "./errorHandlingMiddleware";
+import { generateCustomError } from "../helpers/error";
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;

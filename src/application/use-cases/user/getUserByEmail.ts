@@ -1,5 +1,5 @@
 import { User } from "../../../domain/entities/user"
-import { generateCustomError } from "../../../infrastructure/webserver/middlewares/errorHandlingMiddleware"
+import { generateCustomError } from "../../../infrastructure/webserver/helpers/error";
 import { UserRepository } from "../../interfaces/user.repository.interface"
 
 
