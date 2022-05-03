@@ -29,7 +29,8 @@ export const userRepositoryDB: userRepositoryDBGenerator = () => {
     return result as User;
   };
   const deleteUser = async (id: string) => {
-    await UserModel.findOneAndDelete({ _id: id });
+    const result = await UserModel.findOneAndDelete({ _id: id });
+    return !!result;
   };
 
   return {

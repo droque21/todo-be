@@ -6,7 +6,7 @@ export interface UserRepository {
   getUserByEmail(email: string): Promise<User>;
   saveUser(user: User): Promise<User>;
   updateUser(user: User): Promise<User>;
-  deleteUser(id: string): Promise<void>;
+  deleteUser(id: string): Promise<boolean>;
 }
 
 export type userRepositoryGenerator = (userRepositoryDB: UserRepositoryDB) => UserRepository;
