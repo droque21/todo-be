@@ -8,10 +8,9 @@ export const loginUser = async (user: User, userRepository: UserRepository, auth
     generateCustomError(401, "You must provide a username and password");
   }
 
-  const erros: string[] = []
-
   let userDB: User;
   userDB = await userRepository.getUserByEmail(user.email);
+
   if (!userDB) {
     userDB = await userRepository.getUserByUsername(user.username);
   }

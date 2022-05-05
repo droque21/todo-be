@@ -14,8 +14,7 @@ export const userRouter = (express) => {
   router.get('/username/:username', authMiddleware, controller.fetchUserByUsername);
   router.get('/email/:email', authMiddleware, controller.fetchUserByEmail);
   router.post('/', controller.saveUser);
-  router.put('/:id', authMiddleware, controller.updateUser);
-  router.delete('/:id', authMiddleware, controller.deleteUser);
+  router.put('/', authMiddleware, controller.updateUser);
   router.post('/login', controller.loginUser);
   return router;
 }

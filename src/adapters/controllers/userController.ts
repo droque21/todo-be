@@ -42,22 +42,8 @@ export const userController = (
   const updateUser = async (req: RequestCustom<User>, res: any, next: any) => {
     try {
       const user = req.body as User
-      const updatedUser = await UserUseCase.updateUser(user, userRepository)
+      const updatedUser = await UserUseCase.updateUser(user, userRepository, authServiceRepository)
       res.json(updatedUser)
-    } catch (error) {
-      next(error)
-    }
-  }
-
-  const deleteUser = async (req: RequestCustom<User>, res: any, next: any) => {
-    try {
-      const id = req.params.id
-      if (req.user.id !== id) {
-        throw new Error('Unauthorized')
-      }
-
-      await UserUseCase.deleteUser(id, userRepository, authServiceRepository)
-      res.json({})
     } catch (error) {
       next(error)
     }
@@ -78,7 +64,6 @@ export const userController = (
     fetchUserByEmail,
     saveUser,
     updateUser,
-    deleteUser,
     loginUser
   }
 }
