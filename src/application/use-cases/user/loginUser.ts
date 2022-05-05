@@ -1,7 +1,7 @@
 import { AuthUser, User } from "../../../domain/entities/user";
-import { generateCustomError } from "../../../infrastructure/webserver/helpers/error";;
-import { UserRepository } from "../../interfaces/user.repository.interface";
-import { AuthServiceRepository } from "../../services/authService";
+import { generateCustomError } from "../../../infrastructure/webserver/helpers/error";
+import { UserRepository } from "../../repositories/user.repository";
+import { AuthServiceRepository } from "../../repositories/authService.repository";
 
 export const loginUser = async (user: User, userRepository: UserRepository, authRepository: AuthServiceRepository): Promise<AuthUser> => {
   if (!user.username || !user.password) {

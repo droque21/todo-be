@@ -1,7 +1,8 @@
 import { User } from "../../../domain/entities/user";
-import { generateCustomError } from "../../../infrastructure/webserver/helpers/error";;
-import { UserRepository } from "../../interfaces/user.repository.interface";
-import { AuthServiceRepository } from "../../services/authService";
+import { generateCustomError } from "../../../infrastructure/webserver/helpers/error";
+import { UserRepository } from "../../repositories/user.repository";
+import { AuthServiceRepository } from "../../repositories/authService.repository";
+
 
 export const saveUser = async (user: User, userRepository: UserRepository, authRepository: AuthServiceRepository): Promise<User> => {
   if (!user.email || !user.username || !user.password)
@@ -18,7 +19,7 @@ export const saveUser = async (user: User, userRepository: UserRepository, authR
   const passwordIsInValid = user.password!.length <= 7;
   if (passwordIsInValid) erros.push("Passowrd must be at least 8 characters long");
 
-  if (erros.length > 0) generateCustomError(400, "User must have email, username and password", erros);
+  if (erros.length > 0) generateCustomError(400, "Conflits", erros);
 
   const newUser: User = {
     ...user,

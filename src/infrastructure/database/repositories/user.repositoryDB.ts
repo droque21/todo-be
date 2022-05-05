@@ -1,8 +1,8 @@
+import { UserRepository } from '../../../application/repositories/user.repository';
 import { User } from '../../../domain/entities/user';
-import { userRepositoryDBGenerator } from '../interfaces/user.repositoryDB.interface';
 import UserModel from '../models/user.model';
 
-export const userRepositoryDB: userRepositoryDBGenerator = () => {
+export const userRepositoryDB = (): UserRepository => {
 
   const getUserByUsername = async (username: string) => {
     const result = await UserModel.findOne({ username });

@@ -1,18 +1,13 @@
 import { User } from "../../domain/entities/user";
-import { AuthServiceImplementationGenerator, AuthServiceRepositoryGenerator } from "../../application/services/authService";
+import { AuthServiceRepository } from "../../application/repositories/authService.repository";
 import * as UserUseCase from "../../application/use-cases/user";
 import { RequestCustom, RequestWithUser } from "../../infrastructure/webserver/interfaces/express";
-import { userRepositoryDBGenerator } from "../../infrastructure/database/interfaces/user.repositoryDB.interface";
-import { userRepositoryGenerator } from "../../application/interfaces/user.repository.interface";
+import { UserRepository } from "../../application/repositories/user.repository";
 
 export const userController = (
-  userRepositoryGenerator: userRepositoryGenerator,
-  userRepositoryDBGenerator: userRepositoryDBGenerator,
-  authServiceRepository: AuthServiceRepositoryGenerator,
-  authServiceImpl: AuthServiceImplementationGenerator
+  userRepository: UserRepository,
+  authServiceRepository: AuthServiceRepository,
 ) => {
-  const userRepository = userRepositoryGenerator(userRepositoryDBGenerator())
-  const authService = authServiceRepository(authServiceImpl())
 
   const fetchUserByUsername = async (req: RequestWithUser, res: any, next: any) => {
     try {
@@ -37,7 +32,7 @@ export const userController = (
   const saveUser = async (req: RequestCustom<User>, res: any, next: any) => {
     try {
       const user = req.body
-      const savedUser = await UserUseCase.saveUser(user, userRepository, authService)
+      const savedUser = await UserUseCase.saveUser(user, userRepository, authServiceRepository)
       res.json(savedUser)
     } catch (error) {
       next(error)
@@ -61,7 +56,7 @@ export const userController = (
         throw new Error('Unauthorized')
       }
 
-      await UserUseCase.deleteUser(id, userRepository, authService)
+      await UserUseCase.deleteUser(id, userRepository, authServiceRepository)
       res.json({})
     } catch (error) {
       next(error)
@@ -71,7 +66,7 @@ export const userController = (
   const loginUser = async (req: RequestCustom<User>, res: any, next: any) => {
     try {
       const user = req.body
-      const token = await UserUseCase.loginUser(user, userRepository, authService)
+      const token = await UserUseCase.loginUser(user, userRepository, authServiceRepository)
       res.json(token)
     } catch (error) {
       next(error)

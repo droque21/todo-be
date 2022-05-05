@@ -1,11 +1,10 @@
 import { authServiceImpl } from "../../services/authService";
-import { authServiceRepository } from "../../../application/services/authService";
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { generateCustomError } from "../helpers/error";
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
-  const authService = authServiceRepository(authServiceImpl());
+  const authService = authServiceImpl();
 
   if (!token) {
     generateCustomError(401, "No token provided");
