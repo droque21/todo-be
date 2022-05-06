@@ -13,12 +13,25 @@ export const taskRepositoryDB = (): TaskRepository => {
   }
 
   const getTasksFromUser = async (userId: string): Promise<Task[]> => {
-    const result = await TaskModel.find({ createdBy: userId });
+    const result = await TaskModel.find({ createdBy: userId }).populate('subTasks');
     return result as Task[];
+  }
+
+  const addSubTaskToTask = async (taskId: string, subTask: SubTask): Promise<SubTask> => {
+    const newSubTask = await SubTaskModel.create(subTask);
+    await TaskModel.findByIdAndUpdate(taskId, { $push: { subTasks: newSubTask } });
+    return newSubTask as SubTask;
+  }
+
+  const getTaskById = async (taskId: string): Promise<Task> => {
+    const result = await TaskModel.findOne({ _id: taskId }).populate('subTasks');
+    return result as Task;
   }
 
   return {
     createTask,
-    getTasksFromUser
+    getTasksFromUser,
+    addSubTaskToTask,
+    getTaskById
   }
 }

@@ -34,8 +34,35 @@ export const taskController = (taskRepository: TaskRepository) => {
     }
   }
 
+  const addSubTaskToTask = async (req: RequestCustom<SubTask>, res: any, next: any) => {
+    const taskId = req.params.taskId;
+    const subTask = {
+      ...req.body,
+      completed: false,
+      taskId
+    };
+    try {
+      const result = await TaskUseCase.addSubTaskToTask(taskId, subTask, taskRepository);
+      res.json({ subTask: result });
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  const getTaskById = async (req: RequestCustom<Task>, res: any, next: any) => {
+    const taskId = req.params.taskId;
+    try {
+      const result = await TaskUseCase.getTaskById(taskId, taskRepository);
+      res.json({ task: result });
+    } catch (error) {
+      next(error)
+    }
+  }
+
   return {
     createTask,
-    getTasksFromUser
+    getTasksFromUser,
+    addSubTaskToTask,
+    getTaskById
   }
 }

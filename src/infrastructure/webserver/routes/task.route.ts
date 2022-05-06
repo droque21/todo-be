@@ -11,5 +11,7 @@ export const taskRouter = (express) => {
 
   router.post('/', authMiddleware, controller.createTask);
   router.get('/', authMiddleware, controller.getTasksFromUser);
+  router.put('/:taskId/subtask', authMiddleware, controller.addSubTaskToTask);
+  router.get('/:taskId', authMiddleware, controller.getTaskById);
   return router;
 }
