@@ -33,7 +33,7 @@ describe("Get All Contacts Use Case", () => {
     };
 
     jest.spyOn(mockTaskRepository, "createTask").mockImplementation(() => Promise.resolve(expectedResult))
-    const result = await mockTaskRepository.createTask({ name: "Task 1", description: "Task 1", completed: false, dueDate: 1, subTasks: [], createdAt: 1, updatedAt: 1, createdBy: '', updatedBy: '' })
+    const result = await mockTaskRepository.createTask(expectedResult)
     expect(result).toStrictEqual(expectedResult)
 
   });

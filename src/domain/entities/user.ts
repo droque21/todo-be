@@ -6,7 +6,6 @@ export interface User {
   email: string;
   password?: string;
   active?: boolean;
-  tasks?: Task[];
   createdAt?: number;
   updatedAt?: number;
   createdBy?: string;

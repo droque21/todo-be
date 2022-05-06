@@ -33,7 +33,7 @@ export const userController = (
     try {
       const user = req.body
       const savedUser = await UserUseCase.saveUser(user, userRepository, authServiceRepository)
-      res.json(savedUser)
+      res.status(201).json(savedUser)
     } catch (error) {
       next(error)
     }
