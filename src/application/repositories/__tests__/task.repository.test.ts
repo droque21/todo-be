@@ -7,8 +7,12 @@ describe("Get All Contacts Use Case", () => {
     const createTask = (task: Task): Promise<Task> => {
       throw new Error("Method not implemented.");
     }
+    const getTasksFromUser = (userId: string): Promise<Task[]> => {
+      throw new Error("Method not implemented.");
+    }
     return {
-      createTask
+      createTask,
+      getTasksFromUser
     };
   }
   let mockTaskRepository = mockTaskRepositoryImpl();

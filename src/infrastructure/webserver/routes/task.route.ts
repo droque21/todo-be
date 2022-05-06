@@ -10,5 +10,6 @@ export const taskRouter = (express) => {
   )
 
   router.post('/', authMiddleware, controller.createTask);
+  router.get('/', authMiddleware, controller.getTasksFromUser);
   return router;
 }

@@ -6,11 +6,19 @@ import { TaskRepository } from "../../../application/repositories/task.repositor
 
 
 export const taskRepositoryDB = (): TaskRepository => {
+
   const createTask = async (task: Task): Promise<Task> => {
     const result = await TaskModel.create(task);
     return result as Task;
   }
+
+  const getTasksFromUser = async (userId: string): Promise<Task[]> => {
+    const result = await TaskModel.find({ createdBy: userId });
+    return result as Task[];
+  }
+
   return {
-    createTask
+    createTask,
+    getTasksFromUser
   }
 }

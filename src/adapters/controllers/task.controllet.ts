@@ -2,8 +2,7 @@ import { Task } from "../../domain/entities/task";
 import { SubTask } from "../../domain/entities/subTask";
 import { TaskRepository } from "../../application/repositories/task.repository";
 import * as TaskUseCase from "../../application/use-cases/task";
-import { RequestCustom } from "../../infrastructure/webserver/interfaces/express";
-import { AuthServiceRepository } from "../../application/repositories/authService.repository";
+import { RequestCustom, RequestWithUser } from "../../infrastructure/webserver/interfaces/express";
 
 export const taskController = (taskRepository: TaskRepository) => {
 
@@ -25,8 +24,18 @@ export const taskController = (taskRepository: TaskRepository) => {
     }
   }
 
-  return {
-    createTask
+  const getTasksFromUser = async (req: RequestWithUser, res: any, next: any) => {
+    try {
+      const userId = req.user.id
+      const result = await TaskUseCase.getTasksFromUser(userId, taskRepository);
+      res.json({ tasks: result });
+    } catch (error) {
+      next(error)
+    }
   }
 
+  return {
+    createTask,
+    getTasksFromUser
+  }
 }
